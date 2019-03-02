@@ -1,0 +1,222 @@
+
+swagger: "2.0"
+
+info:
+  title: "Dog Running S.A"
+  description: API description for Dog Running S.A.
+  version: "1.0"
+
+host: localhost:8098
+basePath: /v1.0
+
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+
+paths:
+  /dog/{name}:
+    get:
+      summary: Gets a dog by name.
+      parameters:
+      - in: path
+        name: name
+        type: string
+        required: true
+        description: Name dog to get.
+      operationId: api.dog.class_instance.get
+      responses:
+        '200':
+          description: 'Fetch a Dog'
+          schema:
+              $ref: '#/definitions/Dog'
+    put:
+      summary: Update a dog by name.
+      consumes:
+        - application/json
+      parameters:
+      - in: path
+        name: name
+        type: string
+        required: true
+        description: Name dog to get.
+      - in: body
+        name: dog
+        description: 'A dog to be updated'
+        schema:
+            type: object
+            properties:
+              age:
+                type: integer
+                format: int32
+                minimum: 0
+                exclusiveMinimum: false
+              weight:
+                type: integer
+                format: int64
+              breeder: 
+                type: object
+                required:
+                  - name
+                properties:
+                  name: { type: string }
+      operationId: api.dog.class_instance.update
+      responses:
+        '200':
+          description: 'Dog updated!'
+          schema:
+              $ref: '#/definitions/Dog'
+  /dog:
+    post:
+      consumes:
+        - application/json
+      parameters:
+      - in: body
+        name: dog
+        description: 'A new dog to be Created'
+        schema:
+          type: object
+          required:
+            - name
+          properties:
+            name: { type: string }
+            breeder: 
+                type: object
+                required:
+                  - name
+                properties:
+                  name: { type: string }
+            age:
+              type: integer
+              format: int32
+              minimum: 0
+              exclusiveMinimum: false
+            weight:
+              type: integer
+              format: int64    
+      summary: Create a new Dog.
+      operationId: api.dog.class_instance.post
+      responses:
+        '201':
+          description: 'Create a new Dog'
+          schema:
+              $ref: '#/definitions/Dog'
+    get:
+      parameters:
+      - in: query
+        name: sort
+        type: string
+        enum: [breed,age,weight]
+        description: 'Shows sorted by the entities'
+      summary: Gets a dog list.
+      operationId: api.dog.class_instance.list
+      responses:
+        '200':
+          description: 'Fetch a Dog List'
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Dog'
+
+  /summary:
+    get:
+      summary: Gets some data summarized
+      operationId: api.dog.class_instance.summarized_data
+      responses:
+        '200':
+          description: 'Some data summarized'
+          schema:
+              $ref: '#/definitions/Summary'
+
+
+
+
+  /breeder/{name}:
+    get:
+      parameters:
+      - in: path
+        name: name
+        type: string
+        required: true
+        description: Breeder Name to get.
+      summary: Gets a breeder by Name.
+      operationId: api.breeder.class_instance.get
+      responses:
+        '200':
+          description: 'Fetch a Breeder'
+          schema:
+              $ref: '#/definitions/Breeder'
+  /breeder:
+    get:
+      summary: Gets a breeder list.
+      operationId: api.breeder.class_instance.list
+      responses:
+        '200':
+          description: 'Fetch a Breeder List'
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Breeder'
+    post:
+        consumes:
+          - application/json
+        parameters:
+        - in: body
+          name: breeder
+          schema:
+            required:
+            - name
+            type: object
+            properties:
+              name: { type: string }
+        summary: Create a new Breeder. 
+        operationId: api.breeder.class_instance.post
+        responses:
+          '201':
+            description: 'Create a new Breeder'
+            schema:
+                $ref: '#/definitions/Breeder'
+
+
+definitions:
+  Dog:
+    type: object
+    required:
+      - name
+    properties:
+      id:
+        type: integer
+        format: int64
+      name:  { type: string }
+      breeder: 
+        type: object
+        properties:
+          name: { type: string }
+      age:
+        type: integer
+        format: int32
+      weight:
+        type: integer
+        format: int64
+
+  Breeder:
+    type: object
+    required:
+      - name
+    properties:
+      id:
+        type: integer
+        format: int64
+      name:  { type: string }
+
+  Summary:
+    type: object
+    properties:
+      age_average:
+        type: number
+        format: float
+      weight_average:
+        type: number
+        format: float

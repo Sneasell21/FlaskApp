@@ -1,0 +1,8 @@
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+     - "8098:8098"
+  redis:
+    image: "redis:alpine"

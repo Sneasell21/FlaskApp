@@ -7,4 +7,3 @@ Flask-Redis
 Flask-Injector==0.11.0
 connexion[swagger-ui]
 redis
-unittest

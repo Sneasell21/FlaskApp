@@ -5,8 +5,11 @@ Disclaimer: I am aware we need to add unit test and other software best practice
 If you want to build and execute this project, ensure you have installed:
 <br>
 **Docker stack**
+<br>
 	`-Docker`
+<br>
 	`-Docker composer`
+<br>
 	`-Python 3.6`
 
 You can find the requirements file, this file is needed in order to build the docker image.
@@ -15,12 +18,19 @@ Additional to docker files the file db_resource.py is required in order to build
 The next libraries were used as dependencies for this exercise:
 <br>
 	`* flask`
+<br>
 	`* flask-restful`
+<br>
 	`* flask-sqlalchemy`
+<br>
 	`* flask_jsontools`
+<br>
 	`* flask-Redis`
+<br>
 	`* flask-Injecto`
+<br>
 	`* connexion[swagger-ui]`
+<br>
 	`* redis`
 	
 
